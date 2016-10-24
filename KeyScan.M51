@@ -1,0 +1,173 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/11/2014  21:00:57  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE KeyScan.obj TO KeyScan RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  KeyScan.obj (KEYSCAN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CCASE)
+
+
+LINK MAP OF MODULE:  KeyScan (KEYSCAN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     00AEH     UNIT         ?PR?KEYPRO?KEYSCAN
+            CODE    00B1H     0035H     UNIT         ?PR?KEYSCAN?KEYSCAN
+            CODE    00E6H     0026H     UNIT         ?C?LIB_CODE
+            CODE    010CH     001EH     UNIT         ?PR?_DELAY?KEYSCAN
+            CODE    012AH     0019H     UNIT         ?CO?KEYSCAN
+            CODE    0143H     0014H     UNIT         ?PR?MAIN?KEYSCAN
+            CODE    0157H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   KeyScan (KEYSCAN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?KEYSCAN
+
+?PR?MAIN?KEYSCAN
+  +--> ?CO?KEYSCAN
+  +--> ?PR?KEYPRO?KEYSCAN
+
+?PR?KEYPRO?KEYSCAN
+  +--> ?PR?KEYSCAN?KEYSCAN
+  +--> ?CO?KEYSCAN
+
+?PR?KEYSCAN?KEYSCAN
+  +--> ?PR?_DELAY?KEYSCAN
+
+
+
+SYMBOL TABLE OF MODULE:  KeyScan (KEYSCAN)
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2014  21:00:57  PAGE 2
+
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        KEYSCAN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:010CH         PUBLIC        _delay
+  D:00B8H         PUBLIC        IP
+  C:0143H         PUBLIC        main
+  C:00B1H         PUBLIC        KeyScan
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:012AH         PUBLIC        leddata
+  B:00A0H.6       PUBLIC        du
+  B:00A0H.7       PUBLIC        we
+  C:0003H         PUBLIC        KeyPro
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        z
+  -------         DO            
+  D:0006H         SYMBOL        x
+  D:0004H         SYMBOL        y
+  -------         ENDDO         
+  C:010CH         LINE#         35
+  C:010CH         LINE#         36
+  C:010CH         LINE#         38
+  C:0115H         LINE#         39
+  C:0129H         LINE#         40
+  -------         ENDPROC       _DELAY
+  -------         PROC          KEYSCAN
+  -------         DO            
+  D:0003H         SYMBOL        cord_l
+  D:0007H         SYMBOL        cord_h
+  -------         ENDDO         
+  C:00B1H         LINE#         43
+  C:00B1H         LINE#         44
+  C:00B1H         LINE#         46
+  C:00B4H         LINE#         47
+  C:00BCH         LINE#         48
+  C:00BCH         LINE#         49
+  C:00C3H         LINE#         50
+  C:00CBH         LINE#         51
+  C:00CBH         LINE#         52
+  C:00D0H         LINE#         53
+  C:00D5H         LINE#         54
+  C:00DAH         LINE#         55
+  C:00E2H         LINE#         56
+  C:00E5H         LINE#         57
+  C:00E5H         LINE#         58
+  C:00E5H         LINE#         60
+  -------         ENDPROC       KEYSCAN
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2014  21:00:57  PAGE 3
+
+
+  -------         PROC          KEYPRO
+  C:0003H         LINE#         62
+  C:0003H         LINE#         63
+  C:0003H         LINE#         64
+  C:004AH         LINE#         65
+  C:004AH         LINE#         67
+  C:004FH         LINE#         68
+  C:0054H         LINE#         69
+  C:0059H         LINE#         70
+  C:005EH         LINE#         73
+  C:0063H         LINE#         74
+  C:0068H         LINE#         75
+  C:006DH         LINE#         76
+  C:0072H         LINE#         79
+  C:0077H         LINE#         80
+  C:007CH         LINE#         81
+  C:0081H         LINE#         82
+  C:0086H         LINE#         85
+  C:008BH         LINE#         86
+  C:0090H         LINE#         87
+  C:0095H         LINE#         88
+  C:009AH         LINE#         90
+  C:009FH         LINE#         91
+  C:00A4H         LINE#         92
+  C:00A9H         LINE#         93
+  C:00B0H         LINE#         94
+  C:00B0H         LINE#         95
+  -------         ENDPROC       KEYPRO
+  -------         PROC          MAIN
+  C:0143H         LINE#         97
+  C:0143H         LINE#         98
+  C:0143H         LINE#         99
+  C:0145H         LINE#         100
+  C:0148H         LINE#         101
+  C:014AH         LINE#         103
+  C:014CH         LINE#         104
+  C:0152H         LINE#         105
+  C:0152H         LINE#         106
+  C:0152H         LINE#         108
+  C:0155H         LINE#         109
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        KEYSCAN
+
+  -------         MODULE        ?C?CCASE
+  C:00E6H         PUBLIC        ?C?CCASE
+  -------         ENDMOD        ?C?CCASE
+
+Program Size: data=9.0 xdata=0 code=355
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

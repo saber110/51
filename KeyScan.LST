@@ -1,0 +1,137 @@
+C51 COMPILER V8.08   KEYSCAN                                                               08/11/2014 21:00:57 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE KEYSCAN
+OBJECT MODULE PLACED IN KeyScan.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE KeyScan.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint  unsigned int
+   4          sbit we = P2^7;
+   5          sbit du = P2^6;
+   6          uchar code leddata[]={ 
+   7           
+   8                          0x3F,  //"0"
+   9                          0x06,  //"1"
+  10                          0x5B,  //"2"
+  11                          0x4F,  //"3"
+  12                          0x66,  //"4"
+  13                          0x6D,  //"5"
+  14                          0x7D,  //"6"
+  15                          0x07,  //"7"
+  16                          0x7F,  //"8"
+  17                          0x6F,  //"9"
+  18                          0x77,  //"A"
+  19                          0x7C,  //"B"
+  20                          0x39,  //"C"
+  21                          0x5E,  //"D"
+  22                          0x79,  //"E"
+  23                          0x71,  //"F"
+  24                          0x76,  //"H"
+  25                          0x38,  //"L"
+  26                          0x37,  //"n"
+  27                          0x3E,  //"u"
+  28                          0x73,  //"P"
+  29                          0x5C,  //"o"
+  30                          0x40,  //"-"
+  31                          0x00,  //熄灭
+  32                          0x00  //自定义
+  33           
+  34                                   };
+  35          void delay(uint z)
+  36          {
+  37   1              uint x,y;
+  38   1              for(x = z; x > 0; x--)
+  39   1                      for(y = 114; y > 0 ; y--);
+  40   1      }
+  41          
+  42          
+  43          uchar KeyScan() //带返回值的子函数
+  44          {
+  45   1              uchar cord_l,cord_h;//声明列线和行线的值的储存变量
+  46   1              P3 = 0x0f;//0000 1111
+  47   1              if( (P3 & 0x0f) != 0x0f)//判断是否有按键按下
+  48   1              {
+  49   2                      delay(5);//软件消抖
+  50   2                      if( (P3 & 0x0f) != 0x0f)//判断是否有按键按下
+  51   2                      {
+  52   3                                cord_h = P3 & 0x0f;// 储存行线值
+  53   3                                P3 = cord_l | 0xf0;
+  54   3                                cord_l = P3 & 0xf0;// 储存列线值
+  55   3                                while( (P3 & 0xf0) != 0xf0 );//松手检测
+C51 COMPILER V8.08   KEYSCAN                                                               08/11/2014 21:00:57 PAGE 2   
+
+  56   3                                return (cord_l + cord_h);//返回键值码
+  57   3                      }       
+  58   2              }
+  59   1                      
+  60   1      }
+  61          
+  62          void KeyPro()
+  63          {
+  64   1              switch( KeyScan() )
+  65   1              {
+  66   2                      //第一行键值码
+  67   2                      case 0xee: P0 = leddata[0];             break;
+  68   2                      case 0xde: P0 = leddata[1];             break;
+  69   2                      case 0xbe: P0 = leddata[2];             break;
+  70   2                      case 0x7e: P0 = leddata[3];             break;
+  71   2                      
+  72   2                      //第二行键值码
+  73   2                      case 0xed: P0 = leddata[4];             break;
+  74   2                      case 0xdd: P0 = leddata[5];             break;
+  75   2                      case 0xbd: P0 = leddata[6];             break;
+  76   2                      case 0x7d: P0 = leddata[7];             break;
+  77   2      
+  78   2                      //第三行键值码
+  79   2                      case 0xeb: P0 = leddata[8];             break;
+  80   2                      case 0xdb: P0 = leddata[9];             break;
+  81   2                      case 0xbb: P0 = leddata[10];    break;
+  82   2                      case 0x7b: P0 = leddata[11];    break;
+  83   2      
+  84   2                      //第四行键值码
+  85   2                      case 0xe7: P0 = leddata[12];    break;
+  86   2                      case 0xd7: P0 = leddata[13];    break;
+  87   2                      case 0xb7: P0 = leddata[14];    break;
+  88   2                      case 0x77: P0 = leddata[15];    break;
+  89   2                      //独立键盘
+  90   2                      case 0xfe: P0 = leddata[16];    break;
+  91   2                      case 0xfd: P0 = leddata[17];    break;
+  92   2                      case 0xfb: P0 = leddata[18];    break;
+  93   2                      case 0xf7: P0 = leddata[19];    break;
+  94   2              }       
+  95   1      }
+  96          
+  97          void main()
+  98          {
+  99   1              we = 1;//打开位选
+ 100   1              P0 = 0;//八位数码管全显示
+ 101   1              we = 0;//锁存位选
+ 102   1      
+ 103   1              du = 1;//打开段选端
+ 104   1              P0 = leddata[22];
+ 105   1              while(1)
+ 106   1              {
+ 107   2                      
+ 108   2                      KeyPro();//提取键值码并且送不同数值给数码管显示
+ 109   2              }
+ 110   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    277    ----
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V8.08   KEYSCAN                                                               08/11/2014 21:00:57 PAGE 3   
+
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
